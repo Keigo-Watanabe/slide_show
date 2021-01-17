@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>samuraiサンプル</title>
+  </head>
+  <style media="screen">
+  body {
+    text-align: center;
+    padding: 20px;
+  }
+  input {
+    margin: 30px 0;
+    padding: 10px 20px;
+  }
+  </style>
+  <body>
+
+    <img id="pic" src="image/sample-1.jpg" alt="">
+    <br>
+    <input type="button" value="開始" onclick="start()">
+
+    <script type="text/javascript">
+      const picsSrc = ['image/sample-1.jpg', 'image/sample-2.jpg', 'image/sample-3.jpg'];
+      let num = -1;
+      const image = document.getElementById('pic');
+
+      function start() {
+        setInterval(slideshowTimer, 2000);
+      }
+
+      function slideshowTimer() {
+        if (num === 2) {
+          num = 0;
+        } else {
+          num++;
+        }
+
+        image.src = picsSrc[num];
+      }
+    </script>
+  </body>
+</html>
