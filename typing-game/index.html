@@ -15,37 +15,30 @@
     </div>
     <button id="start">スタート</button>
     
-    <script>
+    <script type="text/javascript">
         const wrap = document.getElementById('wrap');
         const start = document.getElementById('start');
         
         const textLists = [
             'Hello World',
-            'This is my App',
-            'How are you?',
-            'Today is sunny',
-            'I love JavaScript',
             'Good morning',
-            'I am Japanese',
-            'Samurai',
-            'Typing Game',
-            'Information Technology',
-            'What day is it today?',
-            'Nice to meet you'
-            ];
-            
-        let checkText = [];
-            
+            'How are you?'
+        ];
+        
+        let checkTexts = [];
+        
         const createText = () => {
             const p = document.getElementById('text');
             const rnd = Math.floor(Math.random() * textLists.length);
             
             p.textContent = '';
             
-            checkText = textLists[rnd].split('').map(value => {
+            checkTexts = textLists[rnd].split('').map(value => {
                 const span = document.createElement('span');
+                
                 span.textContent = value;
-                p.appendChild(span); 
+                
+                p.appendChild(span);
                 
                 return span;
             });
@@ -54,42 +47,44 @@
         let score = 0;
         
         const keyDown = e => {
-            if (e.key === checkText[0].textContent){
-                checkText[0].className = 'add-color';
-                checkText.shift();
+            if (e.key === checkTexts[0].textContent){
+                checkTexts[0].className = 'add-color';
+                
+                checkTexts.shift();
                 
                 score++;
                 
-                if (!checkText.length){
+                if (!checkTexts.length) {
                     createText();
-                } 
-            } else if (e.key === 'Shift'){
+                }
+            } else if (e.key === 'Shift') {
                 wrap.style.backgroundColor = '#666';
             } else {
                 wrap.style.backgroundColor = 'red';
             }
         };
         
-        const rankCheck = rank => {
+        const rankCheck = score => {
             let text = '';
             
-            if (score < 100) {
+            if(score < 100) {
                 text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
-            } else if (score < 200){
-                text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;
-            } else if (score < 300){
-                text = `あなたのランクはAです。\nAランクまであと${300 - score}文字です。`;
-            } else if (score >= 300){
-                text = `あなたのランクはSです。\nおめでとうございます。`;
+            } else if(score < 200) {
+                text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;    
+            } else if(score < 300) {
+                text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;    
+            } else if(score >= 300) {
+                text = `あなたのランクはSです。\nおめでとうございます！`;    
             }
             
-            return `${score}文字打てました。\n${text}\n【OK】リトライ/【キャンセル】終了`;
+            return `${score}文字打てました！\n${text}\n【OK】リトライ／【キャンセル】終了`;
         };
         
         const gameOver = id => {
             clearInterval(id);
             
             const result = confirm(rankCheck(score));
+            
             if (result) {
                 window.location.reload();
             }
@@ -100,7 +95,7 @@
             const count = document.getElementById('count');
             
             const id = setInterval(() => {
-                if (time <= 0){
+                if (time <= 0) {
                     gameOver(id);
                 }
                 count.textContent = time--;
@@ -109,6 +104,7 @@
         
         start.addEventListener('click', () => {
             timer();
+            
             createText();
             
             start.style.display = 'none';
@@ -116,6 +112,5 @@
             document.addEventListener('keydown', keyDown);
         });
     </script>
-    
 </body>
 </html>
